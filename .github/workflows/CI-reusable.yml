@@ -2,13 +2,14 @@ name: CI/CD - MAIN
 on:
   workflow_call
 jobs:
-  Build:
+  NodeJSBuild:
+    if: inputs.appType == 'nodejs'
     runs-on: self-hosted
     steps:
       - run: echo OK
   DEV:
     runs-on: self-hosted
-    needs: Build
+    needs: NodeJSBuild
     steps:
       - run: echo OK
   TEST:
