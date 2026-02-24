@@ -1,0 +1,13 @@
+name: CI/CD - MAIN
+on:
+  workflow_call
+jobs:
+  Build:
+    runs-on: self-hosted
+    steps:
+      - run: echo OK
+  DEV:
+    runs-on: self-hosted
+    needs: Build
+    steps:
+      - run: echo OK
