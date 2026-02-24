@@ -10,7 +10,7 @@ jobs:
     if: inputs.appType == 'nodejs'
     runs-on: self-hosted
     steps:
-      - run: echo OK
+      - run: npm install
   DEV:
     runs-on: self-hosted
     needs: NodeJSBuild
