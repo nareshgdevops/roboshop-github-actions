@@ -1,0 +1,41 @@
+name: CI/CD - MAIN
+on:
+  workflow_call:
+    inputs:
+      appType:
+        required: true
+        type: string
+jobs:
+  Build:
+    uses: nareshgdevops/roboshop-github-actions/.github/workflows/CI-reusable.yml@main
+    with:
+      appType: nodejs
+#  TEST:
+#    runs-on: self-hosted
+#    needs: DEV
+#    steps:
+#      - run: echo OK
+#  DEV_DEPLOY:
+#    runs-on: self-hosted
+#    environment: DEV
+#    needs: TEST
+#    steps:
+#      - run: echo OK
+#  QA_DEPLOY:
+#    runs-on: self-hosted
+#    needs: DEV_DEPLOY
+#    environment: QA
+#    steps:
+#      - run: echo OK
+#  UAT_DEPLOY:
+#    runs-on: self-hosted
+#    needs: QA_DEPLOY
+#    environment: UAT
+#    steps:
+#      - run: echo OK
+#  PROD:
+#    runs-on: self-hosted
+#    needs: UAT_DEPLOY
+#    environment: PROD
+#    steps:
+#      - run: echo OK

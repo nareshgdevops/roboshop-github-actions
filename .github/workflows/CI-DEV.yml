@@ -6,13 +6,7 @@ on:
         required: true
         type: string
 jobs:
-  NodeJSBuild:
-    if: inputs.appType == 'nodejs'
-    runs-on: self-hosted
-    steps:
-      - run: npm install
-  DEV:
-    runs-on: self-hosted
-    needs: NodeJSBuild
-    steps:
-      - run: echo OK
+  Build:
+    uses: nareshgdevops/roboshop-github-actions/.github/workflows/CI-reusable.yml@main
+    with:
+      appType: nodejs
