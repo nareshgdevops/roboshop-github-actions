@@ -7,6 +7,8 @@ on:
 jobs:
   Build:
     runs-on: ubuntu-latest
+#    env:
+#      docker_token: ${{ secrets.DOCKER_TOKEN }}
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
@@ -14,5 +16,6 @@ jobs:
         run: |
           cd runner-docker-image
           docker build -t ng1218/github-runner .
+          docker login -u ng1218 -p ${{ secrets.DOCKER_TOKEN }}
           docker push ng1218/github-runner
           
