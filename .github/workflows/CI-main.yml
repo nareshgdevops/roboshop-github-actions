@@ -1,4 +1,4 @@
-name: CI/CD - MAIN
+name: CI/CD - Main
 on:
   workflow_call:
     inputs:

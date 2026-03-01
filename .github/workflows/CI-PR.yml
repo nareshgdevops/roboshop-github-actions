@@ -1,4 +1,4 @@
-name: CI/CD - MAIN
+name: CI - PR
 on:
   workflow_call:
     inputs:
