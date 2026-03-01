@@ -6,7 +6,7 @@ RUN             curl -L "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.i
 #NODEJS
 RUN             dnf module disable nodejs:22 -y && dnf module enable nodejs:22 -y && dnf install nodejs npm -y
 #MAVEN
-RUN             dnf install maven
+RUN             dnf install maven -y
 RUN             useradd github
 USER            github
 WORKDIR         /home/github
