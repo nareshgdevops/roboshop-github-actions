@@ -17,3 +17,13 @@ jobs:
     runs-on: self-hosted
     steps:
       - run: mvn package
+  GoBuild:
+    if: inputs.appType == 'golang'
+    runs-on: self-hosted
+    steps:
+      - run: echo go build
+  AngularBuild:
+    if: inputs.appType == 'angular'
+    runs-on: self-hosted
+    steps:
+      - run: echo angular build

@@ -21,3 +21,21 @@ jobs:
       - run: |
           mvn package
           echo mvn test
+  PythonTest:
+    if: inputs.appType == 'python'
+    runs-on: self-hosted
+    steps:
+      - run: |
+          echo python test
+  GoTest:
+    if: inputs.appType == 'golang'
+    runs-on: self-hosted
+    steps:
+      - run: |
+          echo go test
+  AngularTest:
+    if: inputs.appType == 'angular'
+    runs-on: self-hosted
+    steps:
+      - run: |
+          echo angular test
