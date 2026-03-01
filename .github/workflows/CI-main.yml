@@ -7,7 +7,7 @@ on:
         type: string
 jobs:
   Build:
-    uses: nareshgdevops/roboshop-github-actions/.github/workflows/CI-reusable.yml@main
+    uses: nareshgdevops/roboshop-github-actions/.github/workflows/build.yml@main
     with:
       appType: nodejs
   TEST:
