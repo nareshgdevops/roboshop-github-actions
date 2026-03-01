@@ -1,4 +1,4 @@
-name: CI Build
+name: CI Test
 on:
   workflow_call:
     inputs:
@@ -6,7 +6,7 @@ on:
         required: true
         type: string
 jobs:
-  NodeJSBuild:
+  NodeJSTest:
     if: inputs.appType == 'nodejs'
     runs-on: self-hosted
     steps:
@@ -14,7 +14,7 @@ jobs:
       - run: |
           npm install
           npm test
-  MavenBuild:
+  MavenTest:
     if: inputs.appType == 'maven'
     runs-on: self-hosted
     steps:
