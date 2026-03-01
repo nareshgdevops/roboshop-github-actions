@@ -1,0 +1,23 @@
+name: CI Build
+on:
+  workflow_call:
+    inputs:
+      appType:
+        required: true
+        type: string
+jobs:
+  NodeJSBuild:
+    if: inputs.appType == 'nodejs'
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          npm install
+          npm test
+  MavenBuild:
+    if: inputs.appType == 'maven'
+    runs-on: self-hosted
+    steps:
+      - run: |
+          mvn install
+          mvn test
