@@ -16,14 +16,17 @@ jobs:
     if: inputs.appType == 'maven'
     runs-on: self-hosted
     steps:
+      - uses: actions/checkout@v4
       - run: mvn package
   GoBuild:
     if: inputs.appType == 'golang'
     runs-on: self-hosted
     steps:
+      - uses: actions/checkout@v4
       - run: echo go build
   AngularBuild:
     if: inputs.appType == 'angular'
     runs-on: self-hosted
     steps:
+      - uses: actions/checkout@v4
       - run: echo angular build

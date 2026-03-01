@@ -18,6 +18,7 @@ jobs:
     if: inputs.appType == 'maven'
     runs-on: self-hosted
     steps:
+      - uses: actions/checkout@v4
       - run: |
           mvn package
           echo mvn test
@@ -25,17 +26,20 @@ jobs:
     if: inputs.appType == 'python'
     runs-on: self-hosted
     steps:
+      - uses: actions/checkout@v4
       - run: |
           echo python test
   GoTest:
     if: inputs.appType == 'golang'
     runs-on: self-hosted
     steps:
+      - uses: actions/checkout@v4
       - run: |
           echo go test
   AngularTest:
     if: inputs.appType == 'angular'
     runs-on: self-hosted
     steps:
+      - uses: actions/checkout@v4
       - run: |
           echo angular test
