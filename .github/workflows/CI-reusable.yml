@@ -11,8 +11,8 @@ jobs:
     runs-on: self-hosted
     steps:
       - run: npm install
-  DEV:
+  MavenBuild:
+    if: inputs.appType == 'maven'
     runs-on: self-hosted
-    needs: NodeJSBuild
     steps:
-      - run: echo OK
+      - run: mvn install
