@@ -10,7 +10,9 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-      - run: |
+      - name: Docker Build
+        run: |
+          cd runner-docker-image
           docker build -t ng1218/github-runner .
           docker push ng1218/github-runner
           
