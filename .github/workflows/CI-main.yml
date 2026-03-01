@@ -12,6 +12,7 @@ jobs:
       appType: '${{ inputs.appType }}'
   TEST:
     uses: nareshgdevops/roboshop-github-actions/.github/workflows/test.yml@main
+    needs: TEST
     with:
       appType: '${{ inputs.appType }}'
   DEV_DEPLOY:

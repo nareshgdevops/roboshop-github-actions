@@ -16,4 +16,4 @@ jobs:
     if: inputs.appType == 'maven'
     runs-on: self-hosted
     steps:
-      - run: mvn install
+      - run: mvn package
