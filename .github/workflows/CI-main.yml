@@ -25,7 +25,7 @@ jobs:
   DEV_DEPLOY:
     runs-on: self-hosted
     environment: DEV
-    needs: TEST
+    needs: DockerBuild
     steps:
       - run: echo OK
   QA_DEPLOY:
