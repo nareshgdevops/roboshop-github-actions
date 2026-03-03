@@ -17,7 +17,22 @@ jobs:
       - run: npm install
       - name: Docker Build
         if: inputs.docker_build == 'true'
-        run: docker build .
+          - name: Export azure service principle environment variables
+            id: import-secrets
+            uses: hashicorp/vault-action@v2
+            with:
+              url: http://vault.nareshdevops1218.online:8200/
+              token: ${{ secrets.VAULT_TOKEN }}
+              secrets: |
+                roboshop-infra/data/azure-service-priniciple AZURE_SUBSCRIPTION_ID | AZURE_SUBSCRIPTION_ID ;
+                roboshop-infra/data/azure-service-priniciple AZURE_CLIENT_ID | AZURE_CLIENT_ID ;
+                roboshop-infra/data/azure-service-priniciple AZURE_SECRET | AZURE_SECRET ;
+                roboshop-infra/data/azure-service-priniciple AZURE_TENANT | AZURE_TENANT ;
+        run: |
+          az login --service-principal --username $AZURE_CLIENT_ID --password $AZURE_SECRET --tenant $AZURE_TENANT
+          az acr login -n nareshgdevops --expose-token
+          docker build -t ${{inputs.appName }} .
+          docker push nareshgdevops.azurecr.io/${{inputs.appName }}
   MavenBuild:
     if: inputs.appType == 'maven'
     runs-on: self-hosted
