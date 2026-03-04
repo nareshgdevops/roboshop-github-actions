@@ -5,6 +5,9 @@ on:
       appType:
         required: true
         type: string
+      appName:
+        required: true
+        type: string
       docker_build:
         required: true
         type: string
@@ -30,9 +33,9 @@ jobs:
                 roboshop-infra/data/azure-service-priniciple AZURE_TENANT | AZURE_TENANT ;
         run: |
           az login --service-principal --username $AZURE_CLIENT_ID --password $AZURE_SECRET --tenant $AZURE_TENANT
-          az acr login -n nareshgdevops --expose-token
-          docker build -t ${{inputs.appName }} .
-          docker push nareshgdevops.azurecr.io/${{inputs.appName }}
+          az acr login --name nareshgdevops
+          docker build -t nareshgdevops.azurecr.io/roboshop-${{ inputs.appName }}:${{ github.sha }} .
+          docker push nareshgdevops.azurecr.io/roboshop-${{ inputs.appName }} --all-tags
   MavenBuild:
     if: inputs.appType == 'maven'
     runs-on: self-hosted
