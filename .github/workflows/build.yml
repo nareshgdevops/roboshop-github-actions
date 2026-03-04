@@ -26,7 +26,7 @@ jobs:
         uses: hashicorp/vault-action@v2
         with:
           url: http://vault-int.nareshdevops1218.online:8200/
-          token: ${{ secrets.VAULT_TOKEN }}
+          token: ${{ secrets.vault_token }}
           secrets: |
             roboshop-infra/data/azure-service-priniciple AZURE_SUBSCRIPTION_ID | AZURE_SUBSCRIPTION_ID ;
             roboshop-infra/data/azure-service-priniciple AZURE_CLIENT_ID | AZURE_CLIENT_ID ;
