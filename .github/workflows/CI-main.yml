@@ -10,7 +10,7 @@ on:
         type: string
     secrets:
       VAULT_TOKEN:
-        required: true
+        required: false
 jobs:
   Build:
     uses: nareshgdevops/roboshop-github-actions/.github/workflows/build.yml@main
