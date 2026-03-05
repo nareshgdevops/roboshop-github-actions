@@ -13,7 +13,7 @@ on:
         type: string
     secrets:
       VAULT_TOKEN:
-        required: false
+        required: true
 jobs:
   NodeJSBuild:
     if: inputs.appType == 'nodejs'

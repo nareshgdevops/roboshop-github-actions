@@ -20,41 +20,41 @@ jobs:
       appType: '${{ inputs.appType }}'
       appName: '${{ inputs.appName }}'
       docker_build: "false"
-  TEST:
-    uses: nareshgdevops/roboshop-github-actions/.github/workflows/test.yml@main
-    needs: Build
-    with:
-      appType: '${{ inputs.appType }}'
-  DockerBuild:
-    uses: nareshgdevops/roboshop-github-actions/.github/workflows/build.yml@main
-    needs: TEST
-    with:
-      appType: '${{ inputs.appType }}'
-      docker_build: "true"
-      appName: '${{ inputs.appName }}'
-    secrets:
-      vault_token: ${{ secrets.VAULT_TOKEN }}
-  DEV_DEPLOY:
-    runs-on: self-hosted
-    environment: DEV
-    needs: DockerBuild
-    steps:
-      - run: echo OK
-  QA_DEPLOY:
-    runs-on: self-hosted
-    needs: DEV_DEPLOY
-    environment: QA
-    steps:
-      - run: echo OK
-  UAT_DEPLOY:
-    runs-on: self-hosted
-    needs: QA_DEPLOY
-    environment: UAT
-    steps:
-      - run: echo OK
-  PROD:
-    runs-on: self-hosted
-    needs: UAT_DEPLOY
-    environment: PROD
-    steps:
-      - run: echo OK
+#  TEST:
+#    uses: nareshgdevops/roboshop-github-actions/.github/workflows/test.yml@main
+#    needs: Build
+#    with:
+#      appType: '${{ inputs.appType }}'
+#  DockerBuild:
+#    uses: nareshgdevops/roboshop-github-actions/.github/workflows/build.yml@main
+#    needs: TEST
+#    with:
+#      appType: '${{ inputs.appType }}'
+#      docker_build: "true"
+#      appName: '${{ inputs.appName }}'
+#    secrets:
+#      vault_token: ${{ secrets.VAULT_TOKEN }}
+#  DEV_DEPLOY:
+#    runs-on: self-hosted
+#    environment: DEV
+#    needs: DockerBuild
+#    steps:
+#      - run: echo OK
+#  QA_DEPLOY:
+#    runs-on: self-hosted
+#    needs: DEV_DEPLOY
+#    environment: QA
+#    steps:
+#      - run: echo OK
+#  UAT_DEPLOY:
+#    runs-on: self-hosted
+#    needs: QA_DEPLOY
+#    environment: UAT
+#    steps:
+#      - run: echo OK
+#  PROD:
+#    runs-on: self-hosted
+#    needs: UAT_DEPLOY
+#    environment: PROD
+#    steps:
+#      - run: echo OK
