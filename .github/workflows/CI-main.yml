@@ -15,7 +15,7 @@ jobs:
   Build:
     uses: nareshgdevops/roboshop-github-actions/.github/workflows/build.yml@main
     secrets:
-      vault_token: ${{ secrets.VAULT_TOKEN }}
+      VAULT_TOKEN: ${{ secrets.VAULT_TOKEN }}
     with:
       appType: '${{ inputs.appType }}'
       appName: '${{ inputs.appName }}'
