@@ -8,6 +8,9 @@ on:
       appName:
         required: true
         type: string
+    secrets:
+      VAULT_TOKEN:
+        required: true
 jobs:
   Build:
     uses: nareshgdevops/roboshop-github-actions/.github/workflows/build.yml@main
@@ -15,6 +18,8 @@ jobs:
       appType: '${{ inputs.appType }}'
       appName: '${{ inputs.appName }}'
       docker_build: "false"
+    secrets:
+      VAULT_TOKEN: '${{ secrets.VAULT_TOKEN }}'
   TEST:
     uses: nareshgdevops/roboshop-github-actions/.github/workflows/test.yml@main
     needs: Build
@@ -27,6 +32,8 @@ jobs:
       appType: '${{ inputs.appType }}'
       docker_build: "true"
       appName: '${{ inputs.appName }}'
+    secrets:
+      VAULT_TOKEN : '${{ secrets.VAULT_TOKEN }}'
   DEV_DEPLOY:
     runs-on: self-hosted
     environment: DEV
