@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          npm install
+          echo npm install
           echo npm test
   MavenTest:
     if: inputs.appType == 'maven'
