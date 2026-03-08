@@ -20,7 +20,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v4
-      - run: echo npm install
+      - run: echo "npm install"
       - name: Import Secrets
         if: inputs.docker_build == 'true'
         id: import-secrets
@@ -39,6 +39,7 @@ jobs:
         run: |
           az login --service-principal --username $AZURE_CLIENT_ID --password $AZURE_SECRET --tenant $AZURE_TENANT
           az acr login --name nareshgdevops
+          cd roboshop-${{ inputs.appName }}
           docker build -t nareshgdevops.azurecr.io/roboshop-${{ inputs.appName }}:${{ github.sha }} .
           docker push nareshgdevops.azurecr.io/roboshop-${{ inputs.appName }}:${{ github.sha }}
   MavenBuild:
