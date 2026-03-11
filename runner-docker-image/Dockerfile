@@ -9,7 +9,7 @@ RUN             dnf module disable nodejs:22 -y && dnf module enable nodejs:22 -
 #MAVEN
 RUN             dnf install maven -y
 #HELM
-RUN             dnf install helm -y
+RUN             curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 RUN             useradd github
 USER            github
 WORKDIR         /home/github
