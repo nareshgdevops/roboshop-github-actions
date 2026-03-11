@@ -35,11 +35,14 @@ jobs:
     secrets:
       vault_token: ${{ secrets.VAULT_TOKEN }}
   DEV_DEPLOY:
-    runs-on: self-hosted
-    environment: DEV
-    needs: DockerBuild
-    steps:
-      - run: echo OK
+    uses: nareshgdevops/roboshop-github-actions/.github/workflows/dev-deploy.yml@main
+    needs: TEST
+    with:
+      appType: '${{ inputs.appType }}'
+      docker_build: "true"
+      appName: '${{ inputs.appName }}'
+    secrets:
+      vault_token: ${{ secrets.VAULT_TOKEN }}
   QA_DEPLOY:
     runs-on: self-hosted
     needs: DEV_DEPLOY
