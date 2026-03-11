@@ -26,7 +26,7 @@ jobs:
 
       - name: Run ${{ inputs.appType }} build
         if: inputs.appType == 'maven'
-        run: maven package
+        run: mvn package
 
       - name: Run ${{ inputs.appType }} build
         if: inputs.appType == 'python'
