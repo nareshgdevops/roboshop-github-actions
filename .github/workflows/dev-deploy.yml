@@ -2,13 +2,7 @@ name: Dev Deploy
 on:
   workflow_call:
     inputs:
-      appType:
-        required: true
-        type: string
       appName:
-        required: true
-        type: string
-      docker_build:
         required: true
         type: string
     secrets:
@@ -18,10 +12,11 @@ jobs:
   Build:
     runs-on: self-hosted
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
+        with:
+          repository: nareshgdevops/roboshop-helm
 
       - name: Import Vault Secrets
-        if: inputs.docker_build == 'true'
         id: import-secrets
         uses: hashicorp/vault-action@v2
         with:
@@ -33,10 +28,8 @@ jobs:
             roboshop-infra/data/azure-service-priniciple AZURE_SECRET | AZURE_SECRET ;
             roboshop-infra/data/azure-service-priniciple AZURE_TENANT | AZURE_TENANT ;
 
-      - name: Docker Build
-        if: inputs.docker_build == 'true'
+      - name: Deploy
         run: |
           az login --service-principal --username $AZURE_CLIENT_ID --password $AZURE_SECRET --tenant $AZURE_TENANT
           az acr login --name nareshgdevops
-          docker build -t nareshgdevops.azurecr.io/roboshop-${{ inputs.appName }}:${{ github.sha }} .
-          docker push nareshgdevops.azurecr.io/roboshop-${{ inputs.appName }}:${{ github.sha }}
+          helm upgrade -i ${{ inputs.appName }} . -f env-dev/${{ inputs.appName }}.yaml -n apps --create-namespace

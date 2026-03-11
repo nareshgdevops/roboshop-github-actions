@@ -36,10 +36,8 @@ jobs:
       vault_token: ${{ secrets.VAULT_TOKEN }}
   DEV_DEPLOY:
     uses: nareshgdevops/roboshop-github-actions/.github/workflows/dev-deploy.yml@main
-    needs: TEST
+    needs: DockerBuild
     with:
-      appType: '${{ inputs.appType }}'
-      docker_build: "true"
       appName: '${{ inputs.appName }}'
     secrets:
       vault_token: ${{ secrets.VAULT_TOKEN }}
