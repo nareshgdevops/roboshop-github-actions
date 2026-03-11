@@ -20,23 +20,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Run ${{ inputs.appName }} build
+      - name: Run ${{ inputs.appType }} build
         if: inputs.appType == 'nodejs'
         run: npm install
 
-      - name: Run ${{ inputs.appName }} build
+      - name: Run ${{ inputs.appType }} build
         if: inputs.appType == 'maven'
         run: maven package
 
-      - name: Run ${{ inputs.appName }} build
+      - name: Run ${{ inputs.appType }} build
         if: inputs.appType == 'python'
         run: echo python package
 
-      - name: Run ${{ inputs.appName }} build
+      - name: Run ${{ inputs.appType }} build
         if: inputs.appType == 'golang'
         run: go build
 
-      - name: Run ${{ inputs.appName }} build
+      - name: Run ${{ inputs.appType }} build
         if: inputs.appType == 'angular'
         run: echo angular build
 
