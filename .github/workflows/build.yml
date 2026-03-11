@@ -40,7 +40,7 @@ jobs:
         if: inputs.appType == 'angular'
         run: echo angular build
 
-      - name: Docker Build
+      - name: Import Vault Secrets
         if: inputs.docker_build == 'true'
         id: import-secrets
         uses: hashicorp/vault-action@v2
@@ -52,8 +52,11 @@ jobs:
             roboshop-infra/data/azure-service-priniciple AZURE_CLIENT_ID | AZURE_CLIENT_ID ;
             roboshop-infra/data/azure-service-priniciple AZURE_SECRET | AZURE_SECRET ;
             roboshop-infra/data/azure-service-priniciple AZURE_TENANT | AZURE_TENANT ;
-          run: |
-            az login --service-principal --username $AZURE_CLIENT_ID --password $AZURE_SECRET --tenant $AZURE_TENANT
-            az acr login --name nareshgdevops
-            docker build -t nareshgdevops.azurecr.io/roboshop-${{ inputs.appName }}:${{ github.sha }} .
-            docker push nareshgdevops.azurecr.io/roboshop-${{ inputs.appName }}:${{ github.sha }}
+
+      - name: Docker Build
+        if: inputs.docker_build == 'true'
+        run: |
+          az login --service-principal --username $AZURE_CLIENT_ID --password $AZURE_SECRET --tenant $AZURE_TENANT
+          az acr login --name nareshgdevops
+          docker build -t nareshgdevops.azurecr.io/roboshop-${{ inputs.appName }}:${{ github.sha }} .
+          docker push nareshgdevops.azurecr.io/roboshop-${{ inputs.appName }}:${{ github.sha }}
