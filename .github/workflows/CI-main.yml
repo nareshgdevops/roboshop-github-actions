@@ -8,6 +8,12 @@ on:
       appName:
         required: true
         type: string
+      aksName:
+        required: true
+        type: string
+      resourceGroup:
+        required: true
+        type: string
     secrets:
       VAULT_TOKEN:
         required: true
@@ -39,6 +45,8 @@ jobs:
     needs: DockerBuild
     with:
       appName: '${{ inputs.appName }}'
+      aksName: '${{ inputs.aksName }}'
+      resourceGroup: '${{ inputs.resourceGroup }}'
     secrets:
       vault_token: ${{ secrets.VAULT_TOKEN }}
   QA_DEPLOY:
