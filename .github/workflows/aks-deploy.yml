@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v6
         with:
           repository: nareshgdevops/roboshop-helm
-
+          path: helm
       - name: Import Vault Secrets
         id: import-secrets
         uses: hashicorp/vault-action@v2
@@ -36,6 +36,7 @@ jobs:
 
       - name: Deploy
         run: |
+          cd helm
           az login --service-principal --username $AZURE_CLIENT_ID --password $AZURE_SECRET --tenant $AZURE_TENANT
           az acr login --name nareshgdevops
           az aks get-credentials --name aks-main-${{ inputs.appEnv }} --resource-group ${{ inputs.resourceGroup }} --overwrite-existing
