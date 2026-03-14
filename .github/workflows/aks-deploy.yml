@@ -41,3 +41,4 @@ jobs:
           az acr login --name nareshgdevops
           az aks get-credentials --name aks-main-${{ inputs.appEnv }} --resource-group ${{ inputs.resourceGroup }} --overwrite-existing
 #          helm upgrade -i ${{ inputs.appName }} . -f env-dev/${{ inputs.appName }}.yaml -n apps --create-namespace --set appTag=${{ github.sha }}
+          argocd login $(kubectl get svc argo-cd-argocd-server -n argocd -o jsonpath='{.status.loadBalancer.ingress[0].ip}') --username admin --password $(kubectl get secrets argocd-initial-admin-secret -n argocd -o jsonpath='{.data.password}'| base64 --decode) --insecure
