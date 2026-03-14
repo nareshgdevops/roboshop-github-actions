@@ -11,7 +11,9 @@ RUN             dnf install maven -y
 #HELM
 RUN             curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 #ARGOCD
-RUN             curl -L https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64 -o /usr/local/bin/argocd && chmod +x /usr/local/bin/argocd
+RUN             curl -L https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64 -o argocd
+RUN             chmod +x argocd
+RUN             mv argocd /usr/local/bin/
 RUN             useradd github
 USER            github
 WORKDIR         /home/github
