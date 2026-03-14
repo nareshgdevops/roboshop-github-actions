@@ -41,5 +41,5 @@ jobs:
           az acr login --name nareshgdevops
           az aks get-credentials --name aks-main-${{ inputs.appEnv }} --resource-group ${{ inputs.resourceGroup }} --overwrite-existing
           argocd login $(kubectl get svc argo-cd-argocd-server -n argocd -o jsonpath='{.status.loadBalancer.ingress[0].ip}') --username admin --password $(kubectl get secrets argocd-initial-admin-secret -n argocd -o jsonpath='{.data.password}'| base64 --decode) --insecure
-          argocd app create ${{ inputs.appName }} --repo https://github.com/nareshgdevops/roboshop-helm.git --path . --dest-namespace apps --dest-server https://kubernetes.default.svc --values env-dev/cart.yaml --helm-set appTag=${{ github.sha }} --helm-set replicaCount=2
+          argocd app create ${{ inputs.appName }} --repo https://github.com/nareshgdevops/roboshop-helm.git --path . --dest-namespace apps --dest-server https://kubernetes.default.svc --values env-dev/cart.yaml --helm-set appTag=${{ github.sha }} --helm-set replicaCount=2 --sync-option CreateNamespace=true
           argocd app sync ${{ inputs.appName }}
