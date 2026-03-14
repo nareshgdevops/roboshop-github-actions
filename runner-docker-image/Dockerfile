@@ -10,6 +10,8 @@ RUN             dnf module disable nodejs:22 -y && dnf module enable nodejs:22 -
 RUN             dnf install maven -y
 #HELM
 RUN             curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+#ARGOCD
+RUN             curl -L https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64 -o /usr/local/bin/argocd && chmod +x /usr/local/bin/argocd
 RUN             useradd github
 USER            github
 WORKDIR         /home/github
