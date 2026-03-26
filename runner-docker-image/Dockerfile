@@ -18,5 +18,7 @@ RUN             useradd github
 USER            github
 WORKDIR         /home/github
 RUN             curl -o actions-runner-linux-x64-2.331.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.331.0/actions-runner-linux-x64-2.331.0.tar.gz && tar xzf ./actions-runner-linux-x64-2.331.0.tar.gz
+#SONARQUBE CLI
+RUN             curl -o sonar-scanner-cli-7.3.0.5189-linux-x64.zip -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-7.3.0.5189-linux-x64.zip && unzip sonar-scanner-cli-7.3.0.5189-linux-x64.zip && rm -rf sonar-scanner-cli-7.3.0.5189-linux-x64.zip
 COPY            run.sh /
 ENTRYPOINT      ["bash", "/run.sh"]
