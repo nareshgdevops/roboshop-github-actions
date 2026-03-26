@@ -52,6 +52,12 @@ jobs:
             roboshop-infra/data/azure-service-priniciple AZURE_CLIENT_ID | AZURE_CLIENT_ID ;
             roboshop-infra/data/azure-service-priniciple AZURE_SECRET | AZURE_SECRET ;
             roboshop-infra/data/azure-service-priniciple AZURE_TENANT | AZURE_TENANT ;
+            roboshop-infra/data/sonarqube sonar_token | SONAR_TOKEN ;
+
+      - name: Sonar Qube Scan
+        if: inputs.docker_build == 'true'
+        run: |
+          /home/github/sonar-scanner-7.3.0.5189-linux-x64/bin/sonar-scanner -Dsonar.host.url=http://sonarqube.nareshdevops1218.online:9000 -Dsonar.token=$SONAR_TOKEN -Dsonar.projectkey=roboshop-${{ inputs.appName }}
 
       - name: Docker Build
         if: inputs.docker_build == 'true'
