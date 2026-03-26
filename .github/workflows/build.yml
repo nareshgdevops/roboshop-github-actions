@@ -54,10 +54,27 @@ jobs:
             roboshop-infra/data/azure-service-priniciple AZURE_TENANT | AZURE_TENANT ;
             roboshop-infra/data/sonarqube sonar_token | SONAR_TOKEN ;
 
-      - name: Sonar Qube Scan
+      - name: Sonar Qube Scan - Java
+        if: inputs.docker_build == 'true' && inputs.appType == 'maven'
+        run: |
+          echo /home/github/sonar-scanner-7.3.0.5189-linux-x64/bin/sonar-scanner -Dsonar.host.url=http://sonarqube.nareshdevops1218.online:9000 -Dsonar.token=$SONAR_TOKEN -Dsonar.projectKey=roboshop-${{ inputs.appName }} -Dsonar.java.binaries=./target/
+          ### -Dsonar.qualitygate.wait=true
+          ### Above option to fail the pipeline, As of now we are not doing it.
+
+      - name: Sonar Qube Scan - Non Java
+        if: inputs.docker_build == 'true' && inputs.appType != 'maven'
+        run: |
+          echo /home/github/sonar-scanner-7.3.0.5189-linux-x64/bin/sonar-scanner -Dsonar.host.url=http://sonarqube.nareshdevops1218.online:9000 -Dsonar.token=$SONAR_TOKEN -Dsonar.projectKey=roboshop-${{ inputs.appName }}
+
+      - name: CheckMarx SAST Scan
         if: inputs.docker_build == 'true'
         run: |
-          /home/github/sonar-scanner-7.3.0.5189-linux-x64/bin/sonar-scanner -Dsonar.host.url=http://sonarqube.nareshdevops1218.online:9000 -Dsonar.token=$SONAR_TOKEN -Dsonar.projectkey=roboshop-${{ inputs.appName }}
+            echo cx scan create -s . --project-name roboshop-${{ inputs.appName }} --scan-types sast
+
+      - name: CheckMarx SCA Scan
+        if: inputs.docker_build == 'true'
+        run: |
+          echo cx scan create --project-name roboshop-${{ inputs.appName }} -s . --scan-types sca
 
       - name: Docker Build
         if: inputs.docker_build == 'true'
