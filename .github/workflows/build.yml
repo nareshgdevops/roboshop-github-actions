@@ -82,4 +82,11 @@ jobs:
           az login --service-principal --username $AZURE_CLIENT_ID --password $AZURE_SECRET --tenant $AZURE_TENANT
           az acr login --name nareshgdevops
           docker build -t nareshgdevops.azurecr.io/roboshop-${{ inputs.appName }}:${{ github.sha }} .
+          trivy image nareshgdevops.azurecr.io/roboshop-${{ inputs.appName }}:${{ github.sha }} --severity HIGH,CRITICAL --ignore-unfixed --exit-code 1
+
+      - name: Docker Push
+        if: inputs.docker_build == 'true'
+        run: |
+          az login --service-principal --username $AZURE_CLIENT_ID --password $AZURE_SECRET --tenant $AZURE_TENANT
+          az acr login --name nareshgdevops
           docker push nareshgdevops.azurecr.io/roboshop-${{ inputs.appName }}:${{ github.sha }}
